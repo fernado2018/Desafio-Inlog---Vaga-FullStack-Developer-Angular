@@ -1,0 +1,59 @@
+<div class="table-container">
+  <div style="display: flex; align-items: center; gap: 12px">
+    <mat-form-field appearance="outline" class="filter-field" style="flex: 1">
+      <mat-label>Filtrar</mat-label>
+      <input
+        matInput
+        (keyup)="applyFilter($event)"
+        [value]="filterValue"
+        placeholder="Digite para filtrar"
+        #input
+      />
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="emitirTelaCadastro()">
+      Cadastrar
+    </button>
+  </div>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <ng-container
+      *ngFor="let col of displayedColumns"
+      [matColumnDef]="getColumnKey(col.key)"
+    >
+      <th mat-header-cell *matHeaderCellDef>{{ col.label }}</th>
+
+      <td mat-cell *matCellDef="let element">
+        <ng-container *ngIf="col.key === 'acoes'; else defaultCell">
+          <ng-container *ngFor="let acao of acoes">
+            <button
+              mat-icon-button
+              color="primary"
+              (click)="view.emit(element)"
+              matTooltip="acao.tooltip"
+            >
+              <mat-icon>{{ acao.icone }}</mat-icon>
+            </button>
+          </ng-container>
+        </ng-container>
+
+        <ng-template #defaultCell>
+          {{ getCellValue(element, col.key) }}
+        </ng-template>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="columns"></tr>
+    <tr mat-row *matRowDef="let row; columns: columns"></tr>
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">
+        Nenhum dado correspondente ao filtro "{{ input.value }}"
+      </td>
+    </tr>
+  </table>
+
+  <mat-paginator
+    [length]="getrowCount()"
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="onPageEvent($event)"
+    showFirstLastButtons
+  >
+  </mat-paginator>
+</div>

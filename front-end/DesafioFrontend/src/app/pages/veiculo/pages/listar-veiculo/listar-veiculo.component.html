@@ -1,0 +1,23 @@
+<section>
+  <mat-card appearance="raised">
+    <mat-card-content
+      ><mat-toolbar color="primary">
+        <span>LISTA DE VEICULOS</span>
+      </mat-toolbar>
+      <div>
+        <app-spinner *ngIf="loading$ | async"></app-spinner>
+        <app-table-pages
+          [columns]="colunas"
+          [displayedColumns]="colunasComRotulo"
+          [data]="veiculos"
+          [acoes]="acoes"
+          (view)="executarAcao($event)"
+          (abrirTelaCadastro)="onAbrirTelaCadastro()"
+          (filtroChange)="onFiltroRecebido($event)"
+          (paginacaoChange)="onPageSizeChange($event)"
+        >
+        </app-table-pages>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</section>

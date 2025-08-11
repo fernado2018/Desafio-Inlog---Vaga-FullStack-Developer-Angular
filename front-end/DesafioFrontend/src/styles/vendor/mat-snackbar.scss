@@ -1,0 +1,15 @@
+.mat-snackbar {
+
+  &_error {
+   --mdc-snackbar-container-color: #{$error};
+   --mdc-snackbar-supporting-text-color: #{$on-error};
+  }
+
+  &_success{
+
+    --mdc-snackbar-container-color: #{$success};
+    --mdc-snackbar-supporting-text-color: #{$on-success};
+  }
+}
+
+
