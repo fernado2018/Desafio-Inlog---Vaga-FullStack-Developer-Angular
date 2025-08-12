@@ -42,7 +42,7 @@ builder.Services.AddScoped<ErrorContext>();
 builder.Services.AddCors(option =>
 {
     option.AddPolicy("CorsPolicy", builder => {
-        builder.WithOrigins("http://localhost:5100")
+        builder.WithOrigins("http://localhost:5200")
          .AllowAnyMethod()
          .AllowAnyHeader();
      }  );
