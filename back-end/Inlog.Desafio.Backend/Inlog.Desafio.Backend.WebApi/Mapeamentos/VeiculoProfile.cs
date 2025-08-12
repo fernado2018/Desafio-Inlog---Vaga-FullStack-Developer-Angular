@@ -13,11 +13,10 @@ namespace Inlog.Desafio.Backend.WebApi.Mapeamentos
         {
             CreateMap<CriarVeiculoBindingModel, Veiculo>();
             CreateMap<CriarLocalizacaoBindigModel, Localizacao>();
-        
-            CreateMap<Veiculo, BuscaTodosVeiculosOutputBindingModel>();
-            CreateMap<Localizacao,LocalizacaoOutputBindingModel>();
 
-    
+            CreateMap<Veiculo, BuscaTodosVeiculosOutputBindingModel>()
+            .ForMember(dest => dest.TipoVeiculo, opt => opt.MapFrom(src => src.TipoVeiculo.ToString()))
+            .ForMember(dest => dest.Localizacao, opt => opt.MapFrom(src => src.Localizacao.Latitude.ToString().Replace(",",".")+","+src.Localizacao.Longitude.ToString().Replace(",",".")));    
         }
     }
 }

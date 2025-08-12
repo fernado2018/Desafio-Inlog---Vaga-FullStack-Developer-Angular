@@ -14,8 +14,8 @@ export class MapaComponent implements OnInit, OnDestroy {
   latlng: any;
   nome: any;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: Localizacao) {
-    this.latlng = `${data.latitude}, ${data.longitude}`;
+  constructor(@Inject(MAT_DIALOG_DATA) public data: string) {
+    this.latlng = data;
   }
 
   ngOnInit(): void {

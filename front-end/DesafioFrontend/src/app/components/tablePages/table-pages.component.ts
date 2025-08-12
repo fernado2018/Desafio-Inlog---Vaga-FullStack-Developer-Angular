@@ -75,14 +75,6 @@ export class TablePagesComponent<T extends { [key: string]: any }>
   getCellValue(element: any, key: string): string {
     const value = element[key];
 
-    if (key === 'localizacao' && value) {
-      return `${value.latitude},${value.longitude}`;
-    }
-
-     if (key === 'tipoVeiculo') {
-      return this.tipoVeiculo[value];
-    }
-
     if (typeof value === 'object' && value !== null) {
       return JSON.stringify(value);
     }

@@ -15,6 +15,6 @@ namespace Inlog.Desafio.Backend.WebApi.Models.Veiculo
         public string Cor { get; set; }
         public string Placa{ get; set; }
         public string NumeroSerieRastreador{ get; set; }
-        public  CriarLocalizacaoBindigModel Localizacao { get; set; }
+        public  string Localizacao { get; set; }
     }
 }
