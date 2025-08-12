@@ -72,7 +72,7 @@
           "builder": "@angular-devkit/build-angular:dev-server",
            "options": {
             "buildTarget": "client-imueble-app:build",
-            "port": 5100
+            "port": 5200
           },
           "configurations": {
             "production": {
