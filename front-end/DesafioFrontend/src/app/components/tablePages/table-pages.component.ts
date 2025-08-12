@@ -61,7 +61,7 @@ export class TablePagesComponent<T extends { [key: string]: any }>
     this.paginacaoChange.emit(pag);
   }
 
-  applyFilter(event: Event) {
+  filtrar(event: Event) {
     const filterInput = (event.target as HTMLInputElement).value;
     this.filterValue = filterInput;
 
@@ -142,4 +142,10 @@ export class TablePagesComponent<T extends { [key: string]: any }>
     if (this.data) return this.data.rowCount;
     return 0;
   }
+
+  limparFiltro() {
+  this.filterValue = '';
+  this.filtrar(new Event('input'));
+}
+
 }

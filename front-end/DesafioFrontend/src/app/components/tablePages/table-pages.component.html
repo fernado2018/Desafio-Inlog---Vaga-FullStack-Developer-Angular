@@ -4,11 +4,21 @@
       <mat-label>Filtrar</mat-label>
       <input
         matInput
-        (keyup)="applyFilter($event)"
+        (keyup)="filtrar($event)"
         [value]="filterValue"
         placeholder="Digite para filtrar"
         #input
       />
+    <button
+    *ngIf="filterValue"
+    matSuffix
+    mat-icon-button
+    aria-label="Limpar filtro"
+    (click)="limparFiltro()"
+  >
+    <mat-icon>close</mat-icon>
+  </button>
+
     </mat-form-field>
     <button mat-raised-button color="primary" (click)="emitirTelaCadastro()">
       Cadastrar

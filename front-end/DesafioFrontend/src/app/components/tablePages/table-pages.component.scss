@@ -9,19 +9,18 @@
   margin-top: 20px;
 }
 
-// table {
-//   width: 100%;
-//   height: auto;
-// }
-
-// td, th {
-//   width: 10%;
-// }
-
-
 .table-container {
-  max-height: 80vh; /* ou 100%, dependendo do layout */
+  max-height: 80vh;
   overflow-y: auto;
-  padding-bottom: 10px; /* evita que o conteúdo encoste no final */
+  padding-bottom: 10px;
 }
+
+mat-form-field {
+  width: 100%;
+}
+
+mat-icon {
+  font-size: 20px;
+}
+
 
