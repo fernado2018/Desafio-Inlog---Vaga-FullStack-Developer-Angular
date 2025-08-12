@@ -15,17 +15,18 @@ namespace Inlog.Desafio.Backend.Application.Services
         private readonly IVeiculoRepository _veiculoRepository;
         private readonly IValidador<Veiculo> _veiculoValidador;
         private readonly IValidador<Localizacao> _localizacaoValidador;
-        public VeiculoService(IVeiculoRepository veiculoRepository, IValidador<Veiculo> veiculoValidador,IValidador<Localizacao>  localizacaoValidador)
+        public VeiculoService(IVeiculoRepository veiculoRepository, IValidador<Veiculo> veiculoValidador, IValidador<Localizacao> localizacaoValidador)
         {
             _veiculoRepository = veiculoRepository;
             _veiculoValidador = veiculoValidador;
             _localizacaoValidador = localizacaoValidador;
         }
-        public async Task<PagedOutput<Veiculo>> BuscarTodosOsVeiculoPaginados(string? filtro, TipoVeiculo TipoVeiculo, string orderBy, bool orderDesc, int page, int pageSize)
+        public async Task<PagedOutput<Veiculo>> BuscarTodosOsVeiculoPaginados(string? filtro, string orderBy, bool orderDesc, int page, int pageSize)
         {
-           var query =   _veiculoRepository.BuscarTodos().Include(x => x.Localizacao).AsQueryable();
+            var query = _veiculoRepository.BuscarTodos().Include(x => x.Localizacao).AsQueryable();
+            int porTipoVeiculo = VerificarTipoVeiculo(filtro);
 
-            if (filtro.EstaPreenchido())
+            if (filtro.EstaPreenchido() && porTipoVeiculo == 0)
             {
                 filtro = PesquisaCoringa.PosicaoTermodaPesquisa(filtro, "E");
                 query = query.Where(x => (EF.Functions.Like(x.Chassi.ToLower(), filtro))
@@ -33,10 +34,17 @@ namespace Inlog.Desafio.Backend.Application.Services
                 || (EF.Functions.Like(x.Cor.ToLower(), filtro)));
             }
 
-            else if (TipoVeiculo == TipoVeiculo.Caminhao || TipoVeiculo == TipoVeiculo.Onibus)
+            else
             {
-                query = query.Where(x => x.TipoVeiculo == TipoVeiculo);
+                query = query;
             }
+
+            if (porTipoVeiculo == (int)TipoVeiculo.Caminhao || porTipoVeiculo == (int)TipoVeiculo.Onibus)
+            {
+                TipoVeiculo tipo = porTipoVeiculo == 1 ? TipoVeiculo.Onibus : TipoVeiculo.Caminhao;
+                query = query.Where(x => x.TipoVeiculo == tipo);
+            }
+           
 
 
             query = orderBy switch
@@ -53,12 +61,24 @@ namespace Inlog.Desafio.Backend.Application.Services
         {
             _veiculoValidador.ValidarRegrasNegocio(veiculo);
             _localizacaoValidador.ValidarRegrasNegocio(veiculo.Localizacao);
-           
+
             await _veiculoRepository.AdicionarAsync(veiculo);
             return veiculo.Id;
         }
-        
-        
+
+
+        private int VerificarTipoVeiculo(string tipoVeiculo)
+        {
+            if (tipoVeiculo.EstaPreenchido())
+            {
+                 if (tipoVeiculo.ToLower() == "caminhao") return (int)TipoVeiculo.Caminhao;
+
+                if (tipoVeiculo.ToLower() == "onibus") return (int)TipoVeiculo.Onibus;
+            }
+           
+            return 0;
+        }   
+
 
     }
 }

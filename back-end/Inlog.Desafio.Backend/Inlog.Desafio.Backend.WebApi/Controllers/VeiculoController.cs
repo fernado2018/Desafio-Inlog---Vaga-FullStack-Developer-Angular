@@ -44,7 +44,6 @@ public class VeiculoController : ControllerBase
     public async Task<IActionResult> ListarVeiculosAsync([FromQuery] BuscaTodosVeiculosInputBindingModel buscaTodosVeiculos)
     {
        var listaDeVeiculo = await _service.BuscarTodosOsVeiculoPaginados(buscaTodosVeiculos.Filtro,
-                                                                    buscaTodosVeiculos.TipoVeiculo,
                                                                     buscaTodosVeiculos.OrderBy,
                                                                     buscaTodosVeiculos.OrderDesc,
                                                                     buscaTodosVeiculos.Page,

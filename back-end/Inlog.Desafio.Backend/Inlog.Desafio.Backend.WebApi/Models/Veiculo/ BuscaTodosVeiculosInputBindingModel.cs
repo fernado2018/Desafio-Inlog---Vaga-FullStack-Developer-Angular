@@ -10,6 +10,5 @@ namespace Inlog.Desafio.Backend.WebApi.Models.Veiculo
 {
     public class  BuscaTodosVeiculosInputBindingModel: BuscaPaginadaInput
     {
-        public TipoVeiculo TipoVeiculo { get; set; }
     }
 }

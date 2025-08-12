@@ -35,7 +35,7 @@ namespace Inlog.Desafio.Backend.Test
              var service = new VeiculoService(repoMock.Object, validadorVeiculoMock.Object, validadorLocalizacaoMock.Object);
      
              // Act
-             var result = await service.BuscarTodosOsVeiculoPaginados(null, TipoVeiculo.Caminhao, "chassi", false, 1, 10);
+             var result = await service.BuscarTodosOsVeiculoPaginados(null, "chassi", false, 1, 10);
      
              // Assert
              result.Results.Count.ShouldBe(2);
